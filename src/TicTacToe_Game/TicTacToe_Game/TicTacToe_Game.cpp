@@ -125,10 +125,15 @@ void mostrar_matrix1() {
     }
 }
 bool winner() {
-    bool condition1 = matrix1[0][2, 1, 0] == s1 || matrix1[1][0, 1, 2] == s1 || matrix1[2][0, 1, 2] == s1;
-    bool condition2 = matrix1[0, 1, 2][0] == s1 || matrix1[0, 1, 2][1] == s1 || matrix1[0, 1, 2][2] == s1;
-    bool condition3 = matrix1[0, 1, 2][0, 1, 2] == s1 || matrix1[0, 1, 2][2, 1, 0] == s1;
-    if (condition1 || condition2 || condition3) {
+    bool condition1 = matrix1[0][0] == s1 && matrix1[0][1] == s1 && matrix1[0][2] == s1 || matrix1[0][0] == s2 && matrix1[0][1] == s2 && matrix1[0][2] == s2;
+    bool condition2 = matrix1[1][0] == s1 && matrix1[1][1] == s1 && matrix1[1][2] == s1 || matrix1[1][0] == s2 && matrix1[1][1] == s2 && matrix1[1][2] == s2;
+    bool condition3 = matrix1[2][0] == s1 && matrix1[2][1] == s1 && matrix1[2][2] == s1 || matrix1[2][0] == s2 && matrix1[2][1] == s2 && matrix1[2][2] == s2;
+    bool condition4 = matrix1[0][0] == s1 && matrix1[1][0] == s1 && matrix1[2][0] == s1 || matrix1[0][0] == s2 && matrix1[1][0] == s2 && matrix1[2][0] == s2;
+    bool condition5 = matrix1[0][1] == s1 && matrix1[1][1] == s1 && matrix1[2][1] == s1 || matrix1[0][1] == s2 && matrix1[1][1] == s2 && matrix1[2][1] == s2;
+    bool condition6 = matrix1[0][2] == s1 && matrix1[1][2] == s1 && matrix1[2][2] == s1 || matrix1[0][2] == s2 && matrix1[1][2] == s2 && matrix1[2][2] == s2;
+    bool condition7 = matrix1[0][0] == s1 && matrix1[1][1] == s1 && matrix1[2][2] == s1 || matrix1[0][0] == s2 && matrix1[1][1] == s2 && matrix1[2][2] == s2;
+    bool condition8 = matrix1[0][2] == s1 && matrix1[1][1] == s1 && matrix1[2][0] == s1 || matrix1[0][2] == s2 && matrix1[1][1] == s2 && matrix1[2][0] == s2;
+    if (condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8) {
         return true;
     }
     return false;
@@ -147,19 +152,14 @@ void pausa() {
     system("pause");
 }
 int main() {
-    int n = 0; string name1;  string name2; char s1 = ' '; char s2 = ' ';
-    //cout << "Ingrese su ficha: "; cin >> n;
-    //matrix[2][2] = ;
-    //arrays
-    //mostrar_matrix(matrix);
+    int n = 0; //string name1;  string name2; char s1 = ' '; char s2 = ' ';
     int i = 0;
     while (i != 6)
     {
         system("cls"); // borrar la pantalla (clear screen)
         cout << "\n\Welcome to tic tac toe, please select an option\n";
         cout << "\n1.- Register the name players and the symbol";
-        cout << "\n2.- Choose a position";
-        cout << "\n4.- The winner is: ";
+        cout << "\n2.- PLAY GAME";
         cout << "\n5.- Exit";
         cout << "\nChoose an option: \n";
         cin >> i;
@@ -176,18 +176,30 @@ int main() {
                 cout << endl;
                 positions_player1();
                 mostrar_matrix1();
-                pausa();
-                if (is_there_space() && winner() != true) {
+                if (winner()) {
+                    cout << endl << name1 << " YOU ARE THE WINNER ;D\n";
+                    break;
+                }
+                else if (is_there_space() != true) {
+                    cout << endl << "UPS NO ONE WINS :( IT'S A TIE\n";
+                    break;
+                }
                     mostrar_matrix();
                     ask_position();
                     cout << endl;
                     positions_player2();
                     mostrar_matrix1();
-                    pausa();
-                }
+                    if (winner()) {
+                        cout << endl << name2 << " YOU ARE THE WINNER ;D\n";
+                        break;
+                    }
+                    else if (is_there_space() != true) {
+                        cout << endl << "UPS NO ONE WINS :( IT'S A TIE\n";
+                        break;
+                    }
             }
+            pausa();
             break;
-        case 3:
         case 4: exit(1);
         }
     }
