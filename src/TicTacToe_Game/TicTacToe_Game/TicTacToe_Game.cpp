@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
 string name1; string name2; char s1; char s2;
-int n;
+int n1;
+int n2;
 char matrix[3][3] = { {'1','2','3'},{'4','5','6'},{'7','8','9'} };
 char matrix1[3][3] = { {' ',' ',' '},{' ',' ',' '},{' ',' ',' '} };
 void player_names(void) {
@@ -11,11 +12,14 @@ void player_names(void) {
     cout << name1 << " introduce your symbol: "; cin >> s1;
     cout << name2 << " introduce your symbol: "; cin >> s2;
 }
-void ask_position() {
-    cout << "What position do you want to choose?: "; cout << endl;
-    cin >> n;
+void ask_position1() {
+    cout << name1 << " What position do you want to choose?: "; cout << endl;
+    cin >> n1;
 }
-
+void ask_position2() {
+    cout << name2 << " What posistion do you want to choose: "; cout << endl;
+    cin >> n2;
+}
 void mostrar_matrix() {
     /*
      x | x | x
@@ -45,61 +49,61 @@ void mostrar_matrix() {
     cout << endl;
 }
 void positions_player1() {
-    if (n == 9) {
+    if (n1 == 9) {
         matrix1[2][2] = s1;
     }
-    else if (n == 8) {
+    else if (n1 == 8) {
         matrix1[2][1] = s1;
     }
-    else if (n == 7) {
+    else if (n1 == 7) {
         matrix1[2][0] = s1;
     }
-    else if (n == 6) {
+    else if (n1 == 6) {
         matrix1[1][2] = s1;
     }
-    else if (n == 5) {
+    else if (n1 == 5) {
         matrix1[1][1] = s1;
     }
-    else if (n == 4) {
+    else if (n1 == 4) {
         matrix1[1][0] = s1;
     }
-    else if (n == 3) {
+    else if (n1 == 3) {
         matrix1[0][2] = s1;
     }
-    else if (n == 2) {
+    else if (n1 == 2) {
         matrix1[0][1] = s1;
     }
-    else if (n == 1) {
+    else if (n1 == 1) {
         matrix1[0][0] = s1;
     }
 
 }
 void positions_player2() {
-    if (n == 9) {
+    if (n2 == 9) {
         matrix1[2][2] = s2;
     }
-    else if (n == 8) {
+    else if (n2 == 8) {
         matrix1[2][1] = s2;
     }
-    else if (n == 7) {
+    else if (n2 == 7) {
         matrix1[2][0] = s2;
     }
-    else if (n == 6) {
+    else if (n2 == 6) {
         matrix1[1][2] = s2;
     }
-    else if (n == 5) {
+    else if (n2 == 5) {
         matrix1[1][1] = s2;
     }
-    else if (n == 4) {
+    else if (n2 == 4) {
         matrix1[1][0] = s2;
     }
-    else if (n == 3) {
+    else if (n2 == 3) {
         matrix1[0][2] = s2;
     }
-    else if (n == 2) {
+    else if (n2 == 2) {
         matrix1[0][1] = s2;
     }
-    else if (n == 1) {
+    else if (n2 == 1) {
         matrix1[0][0] = s2;
     }
 
@@ -172,7 +176,7 @@ int main() {
         case 2:
             while (is_there_space() && winner() != true) {
                 mostrar_matrix();
-                ask_position();
+                ask_position1();
                 cout << endl;
                 positions_player1();
                 mostrar_matrix1();
@@ -185,7 +189,7 @@ int main() {
                     break;
                 }
                     mostrar_matrix();
-                    ask_position();
+                    ask_position2();
                     cout << endl;
                     positions_player2();
                     mostrar_matrix1();
