@@ -1,18 +1,26 @@
 #include <iostream>
 #include <conio.h>
+                    
 using namespace std;
-string name1; string name2; char symbol1; char symbol2;
-int position1;
-int position2;
+
+class Player {
+public:
+    string Name;
+    char Symbol;
+    void ask_player_name() {
+        cout << "Introduce your name: "; cin >> Name;
+        cout << endl;
+    }
+    void ask_player_symbol() {
+        cout << Name << " Introduce your symbol: "; cin >> Symbol;
+        cout << endl;
+    }
+};
+
+int position1, position2;
 char matrix_positions[3][3] = { {'1','2','3'},{'4','5','6'},{'7','8','9'} };
 char matrix_symbols[3][3] = { {' ',' ',' '},{' ',' ',' '},{' ',' ',' '} };
-void player_names(void) {
-    cout << "Player 1 introduce your name: "; cin >> name1;
-    cout << "Player 2 introduce your name: "; cin >> name2;
-    cout << endl;
-    cout << name1 << " introduce your symbol: "; cin >> symbol1;
-    cout << name2 << " introduce your symbol: "; cin >> symbol2;
-}
+
 void show_matrix(char matrix[3][3]) {
     for (int i = 0; i < 3; i++)
     {
@@ -32,6 +40,7 @@ void show_matrix(char matrix[3][3]) {
     }
     cout << endl;
 }
+
 void position_converter(int position, int &x, int &y) {
     switch (position) {
     case 1:
@@ -72,7 +81,8 @@ void position_converter(int position, int &x, int &y) {
         break;
     }
 }
-void ask_position(string name, int player_number) {
+
+void ask_table_position(string name, int player_number) {
     int position;
     int row, column;
     bool is_there_space;
@@ -92,20 +102,22 @@ void ask_position(string name, int player_number) {
         position2 = position;
     }
 }
+
 void save_position(int position, char symbol) {
     int c1, c2;
     position_converter(position, c1, c2);
     matrix_symbols[c1][c2] = symbol;
 }
-bool winner() {
-    bool condition1 = matrix_symbols[0][0] == symbol1 && matrix_symbols[0][1] == symbol1 && matrix_symbols[0][2] == symbol1 || matrix_symbols[0][0] == symbol2 && matrix_symbols[0][1] == symbol2 && matrix_symbols[0][2] == symbol2;
-    bool condition2 = matrix_symbols[1][0] == symbol1 && matrix_symbols[1][1] == symbol1 && matrix_symbols[1][2] == symbol1 || matrix_symbols[1][0] == symbol2 && matrix_symbols[1][1] == symbol2 && matrix_symbols[1][2] == symbol2;
-    bool condition3 = matrix_symbols[2][0] == symbol1 && matrix_symbols[2][1] == symbol1 && matrix_symbols[2][2] == symbol1 || matrix_symbols[2][0] == symbol2 && matrix_symbols[2][1] == symbol2 && matrix_symbols[2][2] == symbol2;
-    bool condition4 = matrix_symbols[0][0] == symbol1 && matrix_symbols[1][0] == symbol1 && matrix_symbols[2][0] == symbol1 || matrix_symbols[0][0] == symbol2 && matrix_symbols[1][0] == symbol2 && matrix_symbols[2][0] == symbol2;
-    bool condition5 = matrix_symbols[0][1] == symbol1 && matrix_symbols[1][1] == symbol1 && matrix_symbols[2][1] == symbol1 || matrix_symbols[0][1] == symbol2 && matrix_symbols[1][1] == symbol2 && matrix_symbols[2][1] == symbol2;
-    bool condition6 = matrix_symbols[0][2] == symbol1 && matrix_symbols[1][2] == symbol1 && matrix_symbols[2][2] == symbol1 || matrix_symbols[0][2] == symbol2 && matrix_symbols[1][2] == symbol2 && matrix_symbols[2][2] == symbol2;
-    bool condition7 = matrix_symbols[0][0] == symbol1 && matrix_symbols[1][1] == symbol1 && matrix_symbols[2][2] == symbol1 || matrix_symbols[0][0] == symbol2 && matrix_symbols[1][1] == symbol2 && matrix_symbols[2][2] == symbol2;
-    bool condition8 = matrix_symbols[0][2] == symbol1 && matrix_symbols[1][1] == symbol1 && matrix_symbols[2][0] == symbol1 || matrix_symbols[0][2] == symbol2 && matrix_symbols[1][1] == symbol2 && matrix_symbols[2][0] == symbol2;
+
+bool Is_there_a_winner(Player p1, Player p2) {
+    bool condition1 = matrix_symbols[0][0] == p1.Symbol && matrix_symbols[0][1] == p1.Symbol && matrix_symbols[0][2] == p1.Symbol || matrix_symbols[0][0] == p2.Symbol && matrix_symbols[0][1] == p2.Symbol && matrix_symbols[0][2] == p2.Symbol;
+    bool condition2 = matrix_symbols[1][0] == p1.Symbol && matrix_symbols[1][1] == p1.Symbol && matrix_symbols[1][2] == p1.Symbol || matrix_symbols[1][0] == p2.Symbol && matrix_symbols[1][1] == p2.Symbol && matrix_symbols[1][2] == p2.Symbol;
+    bool condition3 = matrix_symbols[2][0] == p1.Symbol && matrix_symbols[2][1] == p1.Symbol && matrix_symbols[2][2] == p1.Symbol || matrix_symbols[2][0] == p2.Symbol && matrix_symbols[2][1] == p2.Symbol && matrix_symbols[2][2] == p2.Symbol;
+    bool condition4 = matrix_symbols[0][0] == p1.Symbol && matrix_symbols[1][0] == p1.Symbol && matrix_symbols[2][0] == p1.Symbol || matrix_symbols[0][0] == p2.Symbol && matrix_symbols[1][0] == p2.Symbol && matrix_symbols[2][0] == p2.Symbol;
+    bool condition5 = matrix_symbols[0][1] == p1.Symbol && matrix_symbols[1][1] == p1.Symbol && matrix_symbols[2][1] == p1.Symbol || matrix_symbols[0][1] == p2.Symbol && matrix_symbols[1][1] == p2.Symbol && matrix_symbols[2][1] == p2.Symbol;
+    bool condition6 = matrix_symbols[0][2] == p1.Symbol && matrix_symbols[1][2] == p1.Symbol && matrix_symbols[2][2] == p1.Symbol || matrix_symbols[0][2] == p2.Symbol && matrix_symbols[1][2] == p2.Symbol && matrix_symbols[2][2] == p2.Symbol;
+    bool condition7 = matrix_symbols[0][0] == p1.Symbol && matrix_symbols[1][1] == p1.Symbol && matrix_symbols[2][2] == p1.Symbol || matrix_symbols[0][0] == p2.Symbol && matrix_symbols[1][1] == p2.Symbol && matrix_symbols[2][2] == p2.Symbol;
+    bool condition8 = matrix_symbols[0][2] == p1.Symbol && matrix_symbols[1][1] == p1.Symbol && matrix_symbols[2][0] == p1.Symbol || matrix_symbols[0][2] == p2.Symbol && matrix_symbols[1][1] == p2.Symbol && matrix_symbols[2][0] == p2.Symbol;
     if (condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8) {
         return true;
     }
@@ -121,46 +133,49 @@ bool is_there_space() {
     }
     return false;
 }
+void initialize_matrix_symbols() {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            matrix_symbols[i][j] = ' ';
+        }
+    }
+}
 void pausa() {
     system("pause");
 }
 int main() {
-    /*
-    matrix1[0][0] = 'X';
-    mostrar_matrix1();
-    cout << matrix1[0][0]<<endl;
-    matrix1[0][0] = 'O';
-    mostrar_matrix1();
-    cout << matrix1[0][0];
-    pausa();
-    */
+    Player p1;
+    Player p2;
+    char again;
     int n = 0; //string name1;  string name2; char s1 = ' '; char s2 = ' ';
     int i = 0;
 
-    while (i != 6)
+    do 
     {
+        initialize_matrix_symbols();
         system("cls"); // borrar la pantalla (clear screen)
         cout << "\n\Welcome to tic tac toe, please select an option\n";
-        cout << "\n1.- Register the name players and the symbol";
-        cout << "\n2.- PLAY GAME";
-        cout << "\n3.- Exit";
+        cout << "\n1.- PLAY GAME";
+        cout << "\n2.- Exit";
         cout << "\nChoose an option: \n";
         cin >> i;
         switch (i)
         {
             case 1:
-                player_names();
+                p1.ask_player_name();
+                p2.ask_player_name();
+                p1.ask_player_symbol();
+                p2.ask_player_symbol();
                 pausa();
-                break;
-            case 2:
-                while (is_there_space() && winner() != true) {
+                system("cls");
+                while (is_there_space() && Is_there_a_winner(p1, p2) != true) {
                     show_matrix(matrix_positions);
-                    ask_position(name1, 1);
+                    ask_table_position(p1.Name, 1);
                     cout << endl;
-                    save_position(position1,symbol1);
+                    save_position(position1,p1.Symbol);
                     show_matrix(matrix_symbols);
-                    if (winner()) {
-                        cout << endl << name1 << " YOU ARE THE WINNER ;D\n";
+                    if (Is_there_a_winner(p1, p2)) {
+                        cout << endl << p1.Name << " YOU ARE THE WINNER ;D\n";
                         break;
                     }
                     else if (is_there_space() != true) {
@@ -168,24 +183,30 @@ int main() {
                         break;
                     }
                     show_matrix(matrix_positions);
-                    ask_position(name2, 2);
+                    ask_table_position(p2.Name, 2);
                     cout << endl;
-                    save_position(position2, symbol2);
+                    save_position(position2, p2.Symbol);
                     show_matrix(matrix_symbols);
-                    if (winner()) {
-                        cout << endl << name2 << " YOU ARE THE WINNER ;D\n";
+                    if (Is_there_a_winner(p1, p2)) {
+                        cout << endl << p2.Name << " YOU ARE THE WINNER ;D\n";
                         break;
                     }
                     else if (is_there_space() != true) {
                         cout << endl << "UPS NO ONE WINS :( IT'S A TIE\n";
+
                         break;
                     }
                 }
                 pausa();
                 break;
-                case 3: exit(1);
+                case 2: exit(1);
         }
-    }
+        cout << "Do you want to play again (y=yes ; n= no): \n";
+        cin >> again;
+        system("cls");
+    }while (again=='y');
     system("pause");
     return 0;
 }
+//Read about oriented programming
+//
